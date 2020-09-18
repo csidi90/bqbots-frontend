@@ -1,6 +1,8 @@
 <template
   ><v-row
-    ><v-col cols="12"
+    >
+    <transition name="fade" mode="out-in">
+    <v-col cols="12"
       ><v-card raised>
         <v-card-title primary-title>
           <div>
@@ -138,6 +140,7 @@
     <v-overlay :value="overlay">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
+    </transition>
   </v-row>
 </template>
 
@@ -262,4 +265,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+</style>
+
