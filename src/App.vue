@@ -53,7 +53,7 @@ export default {
     let self = this;
     setInterval(async function() {
       self.$store.dispatch("FETCH_BOTS");
-    }, 5000);
+    }, 1000);
   },
 };
 </script>

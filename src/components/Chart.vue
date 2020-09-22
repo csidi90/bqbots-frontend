@@ -1,15 +1,19 @@
 <template>
   <div>
-    <TradingVue
-      ref="tradingVue"
-      :data="candleData"
-      :color-back="colors.colorBack"
-      :color-grid="colors.colorGrid"
-      :color-text="colors.colorText"
-      :titleTxt="title"
-      :width=this.width
-      :height=this.height
-    ></TradingVue>
+    <v-row>
+      <v-col>
+        <TradingVue
+          ref="tradingVue"
+          :data="candleData"
+          :color-back="colors.colorBack"
+          :color-grid="colors.colorGrid"
+          :color-text="colors.colorText"
+          :titleTxt="title"
+          :width="this.width"
+          :height="this.height"
+        ></TradingVue>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -39,6 +43,7 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
+    this.onResize();
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);

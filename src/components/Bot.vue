@@ -1,7 +1,5 @@
 <template
-  ><v-row
-    >
-    <transition name="fade" mode="out-in">
+  ><v-row>
     <v-col cols="12"
       ><v-card raised>
         <v-card-title primary-title>
@@ -91,25 +89,22 @@
             <v-row>
               <v-switch class="ml-4" label="LOG" v-model="showLog"></v-switch>
               <v-col
+                class="log"
                 v-show="showLog"
                 cols="12"
                 v-for="(item, i) in bot.history"
                 :key="i"
               >
-                <v-card :style="getLogStyle(item.TYPE)"
+                <v-card
                   ><v-card-title primary-title>
-                    {{ item.TYPE }}
+                    <h3 :style="getLogStyle(item.TYPE)">{{ item.TYPE }}</h3>
                   </v-card-title>
                   <v-card-subtitle>
                     {{ new Date(item.Date) }}
                   </v-card-subtitle>
                 </v-card> </v-col
               ><v-col
-                ><v-dialog
-                  id="chartmodal"
-              
-                  v-model="showChart"
-                >
+                ><v-dialog id="chartmodal" v-model="showChart">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn text color="primary" dark v-bind="attrs" v-on="on">
                       show chart
@@ -140,7 +135,6 @@
     <v-overlay :value="overlay">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
-    </transition>
   </v-row>
 </template>
 
@@ -237,12 +231,14 @@ export default {
         id: this.bot.id,
         condition: e.signal,
       });
+      this.overlay = !this.overlay;
     },
     toggleSellCondition(e) {
       this.$store.dispatch("CREATE_SELLCONDITION", {
         id: this.bot.id,
         condition: e.signal,
       });
+      this.overlay = !this.overlay;
     },
     start() {
       this.$store.dispatch("START_BOT", this.bot.id);
@@ -256,9 +252,9 @@ export default {
     },
     getLogStyle(type) {
       if (type === "BUY") {
-        return "background: green;";
+        return "color: green";
       } else {
-        return "background: red";
+        return "color: error";
       }
     },
   },
@@ -266,6 +262,9 @@ export default {
 </script>
 
 <style>
+.log :hover {
+  background: #daffcc;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.3s;
@@ -278,4 +277,3 @@ export default {
   opacity: 0;
 }
 </style>
-
